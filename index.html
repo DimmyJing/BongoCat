@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: #FCFCFC">
     <head>
         <script>
             function resetLeft() {
@@ -11,10 +11,19 @@
         </script>
     </head>
     <body>
-        <video onended="resetLeft()" src="./left.mp4" height="100%"></video><!--
-            legit hackiest solution I've ever seen
-        --><video onended="resetRight()" src="./right.mp4" height="100%"></video>
+        <div id="container" style="position: absolute">
+            <video onended="resetLeft()" src="./left.mp4" height="100%"></video><!--
+                legit hackiest solution I've ever seen
+            --><video onended="resetRight()" src="./right.mp4" height="100%"></video>
+        </div>
         <script>
+            // 200x498, 290x498
+            function onResize() {
+                document.getElementById('container').style.left = (window.innerWidth - 490) / 2 + "px";
+                document.getElementById('container').style.top = (window.innerHeight - 490) / 2 + "px";
+            }
+            onResize();
+            window.onresize = onResize();
             document.addEventListener('click', function(e) {
                 document.getElementsByTagName('video')[0].play();
             })
