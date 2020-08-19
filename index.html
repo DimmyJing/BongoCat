@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html style="background-color: #FCFCFC">
     <head>
-        <script>
-            function resetLeft() {
-                document.getElementsByTagName('video')[0].currentTime = 0;
-            }
-            function resetRight() {
-                document.getElementsByTagName('video')[1].currentTime = 0;
-            }
-        </script>
     </head>
     <body>
         <div id="container" style="position: absolute">
-            <video onended="resetLeft()" src="./left.mp4" height="100%"></video><!--
+            <video id="left" src="./left.mp4"></video><!--
                 legit hackiest solution I've ever seen
-            --><video onended="resetRight()" src="./right.mp4" height="100%"></video>
+            --><video id="right" src="./right.mp4"></video>
         </div>
         <script>
             // 200x498, 290x498
             function onResize() {
-                document.getElementById('container').style.left = (window.innerWidth - 490) / 2 + "px";
-                document.getElementById('container').style.top = (window.innerHeight - 490) / 2 + "px";
+                let elem = document.getElementById('container');
+                let left = (window.innerWidth - 490) / 2 + 'px';
+                let top = (window.innerHeight - 498) / 2 + 'px';
+                elem.style.left = left;
+                elem.style.top = top;
             }
-            onResize();
             window.onresize = onResize();
-            document.addEventListener('click', function(e) {
-                document.getElementsByTagName('video')[0].play();
-            })
+            let left = document.getElementById('left');
+            let right = document.getElementById('right');
+            document.addEventListener('mousedown', function(e) {
+                if (e.button === 0) {
+                    left.play();
+                } else if (e.button === 2) {
+                    right.play();
+                }
+            });
+            document.addEventListener('mouseup', function(e) {
+                if (e.button === 0) {
+                    left.currentTime = 0;
+                    left.pause();
+                } else if (e.button === 2) {
+                    right.currentTime = 0;
+                    right.pause();
+                }
+            });
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
-                document.getElementsByTagName('video')[1].play();
-            })
+            });
         </script>
     </body>
 </html>
