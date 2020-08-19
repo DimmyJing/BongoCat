@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/libgif@0.0.3/libgif.min.js"></script>
+        <script>
+            function resetLeft() {
+                document.getElementsByTagName('video')[0].currentTime = 0;
+            }
+            function resetRight() {
+                document.getElementsByTagName('video')[1].currentTime = 0;
+            }
+        </script>
+    </head>
+    <body>
+        <div height="100%">
+            <video onended="resetLeft()" src="./left.mp4" height="100%"></video><!--
+                legit hackiest solution I've ever seen
+            --><video onended="resetRight()" src="./right.mp4" height="100%"></video>
+        </div>
+        <script>
+            document.addEventListener('click', function(e) {
+                document.getElementsByTagName('video')[0].play();
+            })
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                document.getElementsByTagName('video')[1].play();
+            })
+        </script>
+    </body>
+</html>
